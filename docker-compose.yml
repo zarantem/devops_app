@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  app:
+    build: ..
+    container_name: app
+    ports:
+      - 4567:4567
+    links:
+      - db
+
+  db:
+    image: mariadb:10.11.2
+    container_name: db
+    environment:
+      - MYSQL_DATABASE=app
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ./docker/mysql/volumes:/var/lib/mysql
+    ports:
+      - 3306:3306
